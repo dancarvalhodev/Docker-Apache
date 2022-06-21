@@ -1,2 +1,4 @@
 # Docker-Apache
-Docker Template built using Docker, Apache, PHP and MySQL
+Docker Template built using Docker, Apache, PHP, MySQL e Redis
+
+**Under Construction**
