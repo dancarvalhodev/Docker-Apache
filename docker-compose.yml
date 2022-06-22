@@ -3,7 +3,7 @@ services:
     web:
         build:
             context: bin/web
-        container_name: ${CONTAINER_NAME}web
+        container_name: ${CONTAINER_NAME}docker_server_web
         ports:
             - ${PORT_APACHE}:80
             - ${PORT_APACHE_SSL}:443
@@ -14,13 +14,13 @@ services:
     redis:
         build:
             context: bin/redis
-        container_name: ${CONTAINER_NAME}redis
+        container_name: ${CONTAINER_NAME}docker_redis_apache
         depends_on:
             -  web
     mysql:
         build:
             context: bin/mysql
-        container_name: ${CONTAINER_NAME}mysql
+        container_name: ${CONTAINER_NAME}docker_mysql_apache
         command: --default-authentication-plugin=mysql_native_password
         ports:
             - ${PORT_MYSQL}:3306
