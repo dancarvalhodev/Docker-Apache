@@ -1,3 +1,8 @@
 .env
+
 data/mysql/*
 !data/mysql/.gitkeep
+
+www/*
+!www/.gitkeep
+!www/src/*
