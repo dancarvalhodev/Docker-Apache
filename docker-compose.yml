@@ -10,8 +10,9 @@ services:
         links:
             - php
         volumes:
-            - ./config/apache/sites-available/httpd.conf:/usr/local/apache2/conf/httpd.conf
-            - ./www/${PROJECT}:/usr/local/apache2/htdocs/${PROJECT}
+            - ./config/apache/config/httpd.conf:/usr/local/apache2/conf/httpd.conf
+            - ./config/apache/sites-available/default.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf
+            - ./www/${PROJECT}:/usr/local/apache2/htdocs/
     php:
         build:
             context: bin/php
@@ -19,7 +20,7 @@ services:
         expose:
             - 9000
         volumes:
-            - ./www/${PROJECT}:/usr/local/apache2/htdocs/${PROJECT}
+            - ./www/${PROJECT}:/usr/local/apache2/htdocs/
         #  - /config/php/php.ini:
     redis:
         build:
