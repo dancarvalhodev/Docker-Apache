@@ -1,33 +1,22 @@
 version: '3.9'
 services:
-    apache:
+    web:
         build:
-            context: bin/apache
-        container_name: ${CONTAINER_NAME}apache
+            context: bin/web
+        container_name: ${CONTAINER_NAME}web
         ports:
             - ${PORT_APACHE}:80
             - ${PORT_APACHE_SSL}:443
-        links:
-            - php
         volumes:
-            - ./config/apache/config/httpd.conf:/usr/local/apache2/conf/httpd.conf
-            - ./config/apache/sites-available/default.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf
-            - ./www/${PROJECT}:/usr/local/apache2/htdocs/
-    php:
-        build:
-            context: bin/php
-        container_name: ${CONTAINER_NAME}php
-        expose:
-            - 9000
-        volumes:
-            - ./www/${PROJECT}:/usr/local/apache2/htdocs/
-        #  - /config/php/php.ini:
+            - ./config/web/sites-available/:/etc/apache2/sites-enabled/
+            - ./config/php/php.ini:/usr/local/etc/php/php.ini
+            - ./www/${PROJECT}:/var/www/html
     redis:
         build:
             context: bin/redis
         container_name: ${CONTAINER_NAME}redis
         depends_on:
-            -  php
+            -  web
     mysql:
         build:
             context: bin/mysql
